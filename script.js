@@ -11,6 +11,7 @@ const handleOnSubmit = (e) => {
   const obj = {
     task,
     hr,
+    id: randomIdGenerator(),
   };
   taskList.push(obj);
   //   console.log(taskList);
@@ -38,4 +39,16 @@ const displayEntryList = () => {
                 </tr>`;
   });
   entryelm.innerHTML = str;
+};
+
+//creating unique id
+const randomIdGenerator = (length = 6) => {
+  const str = "qwertyuiopasdfghjklzxcvbnmQWERTYUIOPASDFGHJKLZXCVBNM1234567890";
+
+  let id = "";
+  for (let i = 0; i < 6; i++) {
+    const randomIndex = Math.floor(Math.random() * str.length); //0-61
+    id += str[randomIndex];
+  }
+  return id;
 };
