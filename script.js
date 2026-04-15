@@ -1,6 +1,5 @@
 let taskList = [];
 
-const savedhrsElm = document.getElementById("savedhrsElm");
 const hrsperweek = 24 * 7;
 
 const handleOnSubmit = (e) => {
@@ -30,7 +29,7 @@ const handleOnSubmit = (e) => {
 //display entry list
 const displayEntryList = () => {
   let str = "";
-  console.log(taskList);
+
   const entryelm = document.getElementById("entryList");
   const entryList = taskList.filter((item) => item.type === "entry");
   entryList.map((item, i) => {
@@ -74,6 +73,10 @@ const displayBadList = () => {
                 </tr>`;
   });
   badelm.innerHTML = str;
+  document.getElementById("savedhrsElm").innerText = badList.reduce(
+    (acc, item) => acc + item.hr,
+    0,
+  );
 };
 
 //creating unique id
