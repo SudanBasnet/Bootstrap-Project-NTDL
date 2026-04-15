@@ -20,7 +20,6 @@ const handleOnSubmit = (e) => {
 
 //display entry list
 const displayEntryList = () => {
-  console.log(taskList);
   let str = "";
   const entryelm = document.getElementById("entryList");
   taskList.map((item, i) => {
@@ -29,7 +28,7 @@ const displayEntryList = () => {
                   <td>${item.task}</td>
                   <td>${item.hr}</td>
                   <td class="text-end">
-                    <button class="btn btn-danger">
+                    <button onclick="handleOnDelete('${item.id}')"class="btn btn-danger">
                       <i class="fa-solid fa-trash"></i>
                     </button>
                     <button class="btn btn-success">
@@ -52,3 +51,13 @@ const randomIdGenerator = (length = 6) => {
   }
   return id;
 };
+
+//delete functionality
+
+const handleOnDelete = (id) => {
+  if (window.confirm("are you sure,you want to delete this?"));
+  taskList = taskList.filter((item) => item.id !== id);
+  displayEntryList();
+};
+
+console.log(taskList);
