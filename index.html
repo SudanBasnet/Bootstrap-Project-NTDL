@@ -39,7 +39,11 @@
         <h1 class="text-center">Not to Do List</h1>
 
         <!-- form -->
-        <form action="" class="border p-5 rounded shadow mt-5">
+        <form
+          onsubmit="handleOnSubmit(this)"
+          action="javascript:void(0)"
+          class="border p-5 rounded shadow mt-5"
+        >
           <div class="row g-2">
             <div class="col-md-7">
               <input
@@ -116,5 +120,6 @@
         <div class="alert alert-success">Total Hours allocated = 44 hrs</div>
       </div>
     </div>
+    <script src="./script.js"></script>
   </body>
 </html>
