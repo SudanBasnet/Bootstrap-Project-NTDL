@@ -12,6 +12,7 @@ const handleOnSubmit = (e) => {
     task,
     hr,
     id: randomIdGenerator(),
+    type: "entry",
   };
   taskList.push(obj);
   //   console.log(taskList);
@@ -21,8 +22,10 @@ const handleOnSubmit = (e) => {
 //display entry list
 const displayEntryList = () => {
   let str = "";
+  console.log(taskList);
   const entryelm = document.getElementById("entryList");
-  taskList.map((item, i) => {
+  const entryList = taskList.filter((item) => item.type === "entry");
+  entryList.map((item, i) => {
     str += ` <tr>
                   <td>${i + 1}</td>
                   <td>${item.task}</td>
@@ -31,13 +34,37 @@ const displayEntryList = () => {
                     <button onclick="handleOnDelete('${item.id}')"class="btn btn-danger">
                       <i class="fa-solid fa-trash"></i>
                     </button>
-                    <button class="btn btn-success">
+                    <button onclick ="switchTask('${item.id}','bad')" class="btn btn-success">
                       <i class="fa-solid fa-arrow-right"></i>
                     </button>
                   </td>
                 </tr>`;
   });
   entryelm.innerHTML = str;
+};
+const displayBadList = () => {
+  let str = "";
+  console.log(taskList);
+  const badelm = document.getElementById("badList");
+  const badList = taskList.filter((item) => item.type === "bad");
+  badList.map((item, i) => {
+    str += ` <tr>
+                  <td>${i + 1}</td>
+                  <td>${item.task}</td>
+                  <td>${item.hr}</td>
+                  <td class="text-end">
+                    
+                    <button onclick="switchTask('${item.id}','entry')" class="btn btn-warning">
+                        <i class="fa-solid fa-arrow-left"></i>
+                            </button>
+
+                            <button onclick="handleOnDelete('${item.id}')" class="btn btn-danger">
+                            <i class="fa-solid fa-trash"></i>
+                                    </button>
+                  </td>
+                </tr>`;
+  });
+  badelm.innerHTML = str;
 };
 
 //creating unique id
@@ -55,9 +82,21 @@ const randomIdGenerator = (length = 6) => {
 //delete functionality
 
 const handleOnDelete = (id) => {
-  if (window.confirm("are you sure,you want to delete this?"));
-  taskList = taskList.filter((item) => item.id !== id);
+  if (window.confirm("are you sure,you want to delete this?"))
+    taskList = taskList.filter((item) => item.id !== id);
   displayEntryList();
+  displayBadList();
 };
 
-console.log(taskList);
+//switch functionality
+const switchTask = (id, type) => {
+  console.log(id, type);
+  taskList = taskList.map((item) => {
+    if (item.id === id) {
+      item.type = type;
+    }
+    return item;
+  });
+  displayEntryList();
+  displayBadList();
+};
